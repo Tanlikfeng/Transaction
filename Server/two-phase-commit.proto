@@ -1,0 +1,21 @@
+syntax = "proto3";
+package Server;
+option go_package = ".";
+service TwoPhaseCommitServer {
+    rpc GetLock(Payment) returns (IsSuccessful);
+    rpc Commit(PaymentID) returns (IsSuccessful);
+    rpc Abort(PaymentID) returns (IsSuccessful);
+}
+
+message Payment {
+    uint64 id = 1;
+    uint64 from = 2;
+    int64 amount = 3;
+}
+
+message IsSuccessful {
+    bool successful = 1;
+}
+message PaymentID {
+    uint64 id = 1 ;
+}
